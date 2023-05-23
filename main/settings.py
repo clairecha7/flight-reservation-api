@@ -43,12 +43,15 @@ INSTALLED_APPS = [
     
     # 3rd party
     'rest_framework',
+    'drf_yasg',
+    'debug_toolbar'
 
     #my apps
 
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolBarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -141,3 +144,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
