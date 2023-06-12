@@ -1,26 +1,31 @@
 from rest_framework import serializers
 from .models import Flight, Reservation, Passenger
 
+
 class FlightSerializer(serializers.ModelSerializer):
     # reservation = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = Flight
         fields = "__all__"
 
+
 class PassengerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Passenger
         fields = "__all__"
+
 
 class PassengerSerializerReservation(serializers.ModelSerializer):
     # id = serializers.IntegerField(required=False)
     class Meta:
         model = Passenger
         fields = "__all__"
-        extra_kwargs = {"first_name":{"required": False}, 
-                        "last_name":{"required": False},
-                        "id": {"read_only": False, "required": False}
-                        }
+        extra_kwargs = {
+            "first_name": {"required": False},
+            "last_name": {"required": False},
+            "id": {"read_only": False, "required": False},
+        }
+
 
 class ReservationSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
@@ -28,12 +33,12 @@ class ReservationSerializer(serializers.ModelSerializer):
     flight_id = serializers.IntegerField()
     # passenger = serializers.StringRelatedField(many=True)
     passenger = PassengerSerializerReservation(many=True)
+
     class Meta:
         model = Reservation
         fields = "__all__"
-        extra_kwargs = {"user" : {"read_only" : True}, 
-                        "flight" : {"required" : True}}
-    
+        extra_kwargs = {"user": {"read_only": True}, "flight": {"required": True}}
+
     def create(self, validated_data):
         passenger_data = validated_data.pop("passenger")
         print(passenger_data)
@@ -53,8 +58,10 @@ class ReservationSerializer(serializers.ModelSerializer):
 
         return reservation
 
+
 class StaffFlightSerializer(serializers.ModelSerializer):
     reservation = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
     class Meta:
         model = Flight
         fields = "__all__"

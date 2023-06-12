@@ -5,7 +5,9 @@ from .serializers import RegistrationSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
+
 # Create your views here.
+
 
 class RegisterView(CreateAPIView):
     queryset = User.objects.all()
@@ -15,7 +17,7 @@ class RegisterView(CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()      
+        user = serializer.save()
 
         token = Token.objects.create(user=user)
         # print(token.key)

@@ -6,6 +6,4 @@ router.register("flight", FlightView)
 router.register("reservation", ReservationView)
 router.register("passenger", PassengerView)
 
-urlpatterns = [
-    
-] + router.urls
+urlpatterns = [] + router.urls
